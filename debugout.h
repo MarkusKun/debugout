@@ -35,8 +35,6 @@ class dhex_t{ };
  * \note The programmer is responsible to ensure that scopes are 
  *       ended when they really are. Beware that functions can be
  *       early-terminated by return and loops may be BREAKed or CONTINUEd
- *
- * \todo Well. Lot's of things are not finished. These are mere plans
  */
 class dout_t{
   public:
@@ -61,7 +59,33 @@ class dout_t{
      * \param[in] scopeName   name of the starting scope
      */
     void startScope(const std::string scopeName);
+    /*!
+     * \brief ends a scope
+     *
+     * This function ends a scope. If this scope
+     * was active, a short message is printed.
+     * Afterwards, the name is removed from the stack and it is checked,
+     * whether the next scope on the stack is active.
+     *
+     * \note Ending a scope does not need a scopeName. If you supply
+     *       one, the name of the ended scope is checked against
+     *       the top one on stack and an error is printed if they
+     *       don't match. This can help finding non-ended scopes
+     *
+     * \param[in] scopeName  name of the ending scope
+     */
     void endScope(const std::string scopeName);
+    /*!
+     * \brief ends current scope
+     *
+     * This function ends the current scope. If this scope
+     * was active, a short message is printed. Afterwards,
+     * the name is removed from the stack and it is checked whether the next
+     * scope on the stack is active.
+     *
+     * \note Ending a scope does not need a scopeName. You may
+     *       supply one for more checking (see function with parameter)
+     */
     void endScope();
     
     /*!
@@ -76,6 +100,26 @@ class dout_t{
     bool isActivated(const std::string scopeName);
     
     /*!
+     * \brief Activate or deactivate a scope
+     *
+     * This function activates or deactivates a scope so that entering, exiting and
+     * conditional output will be printed (or not).
+     *
+     * This is useful for activating or deactivating something manually (mainly debugdebug),
+     * but should also be used as main function for activating and deactivating scopes
+     *
+     * \param[in] scopeName   name of the scope
+     * \param[in] activate    true: activate, false: deactivate
+     */
+    void setScopeActive(const std::string scopeName, bool activate);
+    
+    //! Wrapper for setScopeActive(... , true)
+    void activateScope(const std::string scopeName);
+    
+    //! Wrapper for setScopeActive(... , false)
+    void deactivateScope(const std::string scopeName);
+
+    /*!
      * \brief write something to cout if current scope is active
      *
      * This function writes the given string to stdoutput if 
@@ -86,7 +130,6 @@ class dout_t{
      * \param[in] debugOutput String to print
      */
     void dout(const std::string debugOutput);
-    
     /*!
      * \brief print current scope stack
      *
@@ -112,16 +155,23 @@ class dout_t{
     
     bool currentActive;
 
+    //! ReDefining << on strings (chararrays)
     dout_t& operator<< (const char* output );
+    //! ReDefining << on strings (real strings)
+    dout_t& operator<< (const std::string output);
+    //! ReDefining << on integers
     dout_t& operator<< (const int output);
     
+    //! ReDefining << on ostream-functions (like std::endl)
     dout_t& operator<< (std::ostream& ( *functionPointer )(std::ostream&));
+    
+    //! ReDefining << on ios_base-functions (like std::dec)
     dout_t& operator<< (std::ios_base& ( *functionPointer)(std::ios_base&));
     //dout_t& operator<< (ios& ( *pf )(ios&));
     
   private:
-    std::set < std::string > activatedScopes;
-    std::stack < std::string > currentScopeStack;
+    std::set < std::string > activatedScopes; //!< set of activated scopes
+    std::stack < std::string > currentScopeStack; //! stack of current scopes
   
 };
 

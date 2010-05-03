@@ -21,21 +21,26 @@ int main(){
     cout << "main ist nicht active" << endl;
   }
   
-  dout.startScope("foo");
-  if (dout.isActivated("foo")){
-    cout << "foo ist active" << endl;
-  }else{
-    cout << "foo ist nicht active" << endl;
+  { // foo
+    dout.startScope("foo");
+    dout << "We are in foo" << endl;
+    if (dout.isActivated("foo")){
+      cout << "foo ist active" << endl;
+    }else{
+      cout << "foo ist nicht active" << endl;
+    }
+    { // sub2
+      dout.startScope("sub2");
+      dout.endScope();
+    }
+      
+    
+    dout.endScope();
   }
-  
   
   dout.printStack(cout);
   
-  dout << "hello!" << endl;
-  dout << "hallo!" << endl << "foo";
-  dout << std::dec << 0x13 << endl;
-  
-  //dout::endScope("main");
+  dout.endScope("main");
   return 0;
   
   
