@@ -12,6 +12,7 @@ OBJ_DEBUGTEST = ./douttest.o
 
 
 CLEANFILES = $(OBJ_DEBUGOUT) \
+						 $(OBJ_DEBUGNOUT) \
 						 $(OBJ_DEBUGTEST) \
 						 $(BIN_DEBUGTEST)
 

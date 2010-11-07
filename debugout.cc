@@ -6,6 +6,11 @@
 dout_t dout;
 
 void dout_t::loadConfigFile(const std::string filename){
+  #ifdef NO_OUTPUT
+  { // do nothing, return
+    return;
+  }
+  #endif
   // activate this scope to get more info while reading
   startScope("dout_t::loadConfigFile");  
   using std::cerr;  using std::endl;
@@ -47,6 +52,11 @@ void dout_t::loadConfigFile(const std::string filename){
 
 
 void dout_t::startScope(const std::string scopeName){
+  #ifdef NO_OUTPUT
+  { // do nothing, return
+    return;
+  }
+  #endif
   // add to stack
   currentScopeStack.push(scopeName); 
   
@@ -58,9 +68,14 @@ void dout_t::startScope(const std::string scopeName){
    * Note: By using dout, we don't need to check against active scope,
    * ourselves.
    */
-   (*this) << ">>" << currentScopeStack.size() << " " << scopeName << std::endl;
+  (*this) << ">>" << currentScopeStack.size() << " " << scopeName << std::endl;
 }
 void dout_t::endScope(){
+  #ifdef NO_OUTPUT
+  { // do nothing, return
+    return;
+  }
+  #endif
   { // remove old scope from stack 
     std::string currentScope = currentScopeStack.top();
     /*
@@ -80,6 +95,11 @@ void dout_t::endScope(){
   }
 }
 void dout_t::endScope(const std::string scopeName){
+  #ifdef NO_OUTPUT
+  { // do nothing, return
+    return;
+  }
+  #endif
   using std::cerr; using std::endl;
   
   std::string currentScope=currentScopeStack.top();
@@ -96,6 +116,11 @@ void dout_t::endScope(const std::string scopeName){
 
 
 void dout_t::dout(const std::string debugOutput){
+  #ifdef NO_OUTPUT
+  { // do nothing, return
+    return;
+  }
+  #endif
   if (currentActive){
     std::cout << debugOutput << std::endl;
   }
@@ -103,48 +128,83 @@ void dout_t::dout(const std::string debugOutput){
 
 // output functions, "inheritance" of <<   BEGIN 
   dout_t& dout_t::operator<< (const char* output ){
-    if (currentActive){
-      std::cout << output;
+    #ifndef NO_OUTPUT
+    { // only if output is globally active
+      if (currentActive){
+        std::cout << output;
+      }
     }
+    #endif
     return *this;
   }
   dout_t& dout_t::operator<< (const int output ){
-    if (currentActive){
-      std::cout << output;
+    #ifndef NO_OUTPUT
+    { // only if output is globally active
+      if (currentActive){
+        std::cout << output;
+      }
     }
+    #endif 
     return *this;
   }
   dout_t& dout_t::operator<< (const std::string output){
-    if (currentActive){
-      std::cout << output;
+    #ifndef NO_OUTPUT
+    { // only if output is globally active
+      if (currentActive){
+        std::cout << output;
+      }
     }
+    #endif 
     return *this;
   }
 
   dout_t& dout_t::operator<< (std::ostream& ( *functionPointer)(std::ostream&)){
-    if (currentActive){
-      functionPointer(std::cout); // this handles stream manipulators like endl
+    #ifndef NO_OUTPUT
+    { // only if output is globally active
+      if (currentActive){
+        functionPointer(std::cout); // this handles stream manipulators like endl
+      }
     }
+    #endif 
     return *this;
   }
   dout_t& dout_t::operator<< (std::ios_base& ( *functionPointer)(std::ios_base&)){
-    if (currentActive){
-      functionPointer(std::cout); 
+    #ifndef NO_OUTPUT
+    { // only if output is globally active
+      if (currentActive){
+        functionPointer(std::cout); 
+      }
     }
+    #endif 
     return *this;
   }
 // output functions, "inheritance" of <<   END 
 
 // setting and getting activation of scopes BEGIN 
 void dout_t::activateScope(const std::string scopeName){
+  #ifdef NO_OUTPUT
+  { // do nothing, return
+    return;
+  }
+  #endif
   setScopeActive(scopeName,true);
 }
     
 void dout_t::deactivateScope(const std::string scopeName){
+  #ifdef NO_OUTPUT
+  { // do nothing, return
+    return;
+  }
+  #endif
   setScopeActive(scopeName,false);
 }
 
 void dout_t::setScopeActive(const std::string scopeName, bool activate){
+  #ifdef NO_OUTPUT
+  { // do nothing, return
+    return;
+  }
+  #endif
   if (activate){ // activate: put string into set
     activatedScopes.insert(scopeName);
   }else{ // deactivate: remove from set
@@ -155,6 +215,11 @@ void dout_t::setScopeActive(const std::string scopeName, bool activate){
 
 
 bool dout_t::isActivated(const std::string scopeName){
+  #ifdef NO_OUTPUT
+  { // nothing is activated
+    return false;
+  }
+  #endif
   std::set < std::string >::const_iterator scopeSearcher;
   scopeSearcher = activatedScopes.find(scopeName);
   

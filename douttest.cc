@@ -5,6 +5,7 @@
 int main(){
   using std::cout; using std::endl;
   
+  dout.activateScope("dout_t::loadConfigFile");
   dout.loadConfigFile("debug.config");
   
   dout.startScope("main");
