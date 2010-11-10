@@ -5,7 +5,7 @@
 
 dout_t dout;
 
-void dout_t::loadConfigFile(const std::string filename){
+void dout_t::loadConfigFile(const std::string& filename){
   #ifdef NO_OUTPUT
   { // do nothing, return
     return;
@@ -51,7 +51,7 @@ void dout_t::loadConfigFile(const std::string filename){
 
 
 
-void dout_t::startScope(const std::string scopeName){
+void dout_t::startScope(const std::string& scopeName){
   #ifdef NO_OUTPUT
   { // do nothing, return
     return;
@@ -94,7 +94,7 @@ void dout_t::endScope(){
     }
   }
 }
-void dout_t::endScope(const std::string scopeName){
+void dout_t::endScope(const std::string& scopeName){
   #ifdef NO_OUTPUT
   { // do nothing, return
     return;
@@ -115,7 +115,7 @@ void dout_t::endScope(const std::string scopeName){
 }
 
 
-void dout_t::dout(const std::string debugOutput){
+void dout_t::dout(const std::string& debugOutput)const{
   #ifdef NO_OUTPUT
   { // do nothing, return
     return;
@@ -181,7 +181,7 @@ void dout_t::dout(const std::string debugOutput){
 // output functions, "inheritance" of <<   END 
 
 // setting and getting activation of scopes BEGIN 
-void dout_t::activateScope(const std::string scopeName){
+void dout_t::activateScope(const std::string& scopeName){
   #ifdef NO_OUTPUT
   { // do nothing, return
     return;
@@ -190,7 +190,7 @@ void dout_t::activateScope(const std::string scopeName){
   setScopeActive(scopeName,true);
 }
     
-void dout_t::deactivateScope(const std::string scopeName){
+void dout_t::deactivateScope(const std::string& scopeName){
   #ifdef NO_OUTPUT
   { // do nothing, return
     return;
@@ -199,7 +199,7 @@ void dout_t::deactivateScope(const std::string scopeName){
   setScopeActive(scopeName,false);
 }
 
-void dout_t::setScopeActive(const std::string scopeName, bool activate){
+void dout_t::setScopeActive(const std::string& scopeName, bool activate){
   #ifdef NO_OUTPUT
   { // do nothing, return
     return;
@@ -214,7 +214,7 @@ void dout_t::setScopeActive(const std::string scopeName, bool activate){
 
 
 
-bool dout_t::isActivated(const std::string scopeName){
+bool dout_t::isActivated(const std::string& scopeName)const{
   #ifdef NO_OUTPUT
   { // nothing is activated
     return false;
@@ -232,7 +232,7 @@ bool dout_t::isActivated(const std::string scopeName){
 // setting and getting activation of scopes END 
 
 // debugdebug output START
-  void dout_t::printActivatedScopes(std::ostream& outStream){
+  void dout_t::printActivatedScopes(std::ostream& outStream)const{
     using std::endl;
     
     outStream << "----- activated scopes START -----" << endl;
@@ -249,7 +249,7 @@ bool dout_t::isActivated(const std::string scopeName){
     outStream << "----- activated scopes END -----" << endl;
   }
   
-  void dout_t::printStack(std::ostream& outStream){
+  void dout_t::printStack(std::ostream& outStream)const{
     using std::endl;
     
     outStream << "----- stackdisplay START -----" << endl;

@@ -47,7 +47,7 @@ class dout_t{
      *
      * \param[in] filename name of the config file
      */
-    void loadConfigFile(const std::string filename);
+    void loadConfigFile(const std::string& filename);
     /*!
      * \brief start a scope
      *
@@ -58,7 +58,7 @@ class dout_t{
      *
      * \param[in] scopeName   name of the starting scope
      */
-    void startScope(const std::string scopeName);
+    void startScope(const std::string& scopeName);
     /*!
      * \brief ends a scope
      *
@@ -74,7 +74,7 @@ class dout_t{
      *
      * \param[in] scopeName  name of the ending scope
      */
-    void endScope(const std::string scopeName);
+    void endScope(const std::string& scopeName);
     /*!
      * \brief ends current scope
      *
@@ -97,7 +97,7 @@ class dout_t{
      * \param[in] scopeName   name of the scope
      * \return                true, if scope has been actived. false, if not
      */
-    bool isActivated(const std::string scopeName);
+    bool isActivated(const std::string& scopeName)const;
     
     /*!
      * \brief Activate or deactivate a scope
@@ -111,13 +111,13 @@ class dout_t{
      * \param[in] scopeName   name of the scope
      * \param[in] activate    true: activate, false: deactivate
      */
-    void setScopeActive(const std::string scopeName, bool activate);
+    void setScopeActive(const std::string& scopeName, const bool activate);
     
     //! Wrapper for setScopeActive(... , true)
-    void activateScope(const std::string scopeName);
+    void activateScope(const std::string& scopeName);
     
     //! Wrapper for setScopeActive(... , false)
-    void deactivateScope(const std::string scopeName);
+    void deactivateScope(const std::string& scopeName);
 
     /*!
      * \brief write something to cout if current scope is active
@@ -129,7 +129,7 @@ class dout_t{
      *
      * \param[in] debugOutput String to print
      */
-    void dout(const std::string debugOutput);
+    void dout(const std::string& debugOutput)const;
     /*!
      * \brief print current scope stack
      *
@@ -140,7 +140,7 @@ class dout_t{
      *
      * \param outStream   stream to write the information to
      */
-    void printStack(std::ostream& outStream);
+    void printStack(std::ostream& outStream)const;
     /*!
      * \brief print activated scopes
      *
@@ -151,7 +151,7 @@ class dout_t{
      *
      * \param outStream   stream to write the information to
      */
-    void printActivatedScopes(std::ostream& outStream);
+    void printActivatedScopes(std::ostream& outStream)const;
     
     bool currentActive;
 
