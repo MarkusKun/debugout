@@ -1,6 +1,6 @@
 #include <iostream>
+#include <iomanip>
 #include "debugout.h"
-
 
 int main(){
   using std::cout; using std::endl;
@@ -38,9 +38,12 @@ int main(){
     
     dout.endScope();
   }
-  
   dout.printStack(cout);
-  
+
+  dout.activateScope("iomanips");
+  dout.startScope("iomanips");
+  dout << 9 << " "<<std::setfill('x') << std::setw(6) << 9 << endl;
+  dout.endScope("iomanips");
   dout.endScope("main");
   return 0;
   

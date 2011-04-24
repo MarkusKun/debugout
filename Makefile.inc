@@ -2,7 +2,7 @@
 
 # PATH_TO_DEBUGOUT has to be defined
 # include using
-# include $(PATH_TO_CMDLINEPARSER)Makefile.inc
+# include $(PATH_TO_DEBUGOUT)Makefile.inc
 #
 # afterwards, you should be able to use OBJ_DEBUGOUT
 # use OBJ_DEBUGNOUT for an object having all functions empty

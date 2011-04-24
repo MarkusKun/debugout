@@ -178,6 +178,29 @@ void dout_t::dout(const std::string& debugOutput)const{
     #endif 
     return *this;
   }
+  
+  dout_t& dout_t::operator<<(std::_Setw (functionPointer)){
+    #ifndef NO_OUTPUT
+    { // only if output is globally active
+      if (currentActive){
+        std::cout << functionPointer;
+      }
+    }
+    #endif
+    return *this;
+  }
+   
+  dout_t& dout_t::operator<<(std::_Setfill<char> (functionPointer)){
+    #ifndef NO_OUTPUT
+    { // only if output is globally active
+      if (currentActive){
+        std::cout << functionPointer;
+      }
+    }
+    #endif
+    return *this;
+  }
+
 // output functions, "inheritance" of <<   END 
 
 // setting and getting activation of scopes BEGIN 

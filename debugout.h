@@ -2,6 +2,7 @@
 #include <set>
 #include <stack>
 #include <ostream>
+#include <iomanip> 
 
 class dendl_t{ };
 class ddec_t{ };
@@ -167,6 +168,12 @@ class dout_t{
     
     //! ReDefining << on ios_base-functions (like std::dec)
     dout_t& operator<< (std::ios_base& ( *functionPointer)(std::ios_base&));
+
+    //! ReDefining << on _Setw-functions (needed for std::setw(something))
+    dout_t& operator<<(std::_Setw (functionPointer));
+    
+    //! ReDefining << on _SetFill-Functions (needed for std::setfill(something))
+    dout_t& operator<<(std::_Setfill<char> (functionPointer));
     //dout_t& operator<< (ios& ( *pf )(ios&));
     
   private:
