@@ -1,0 +1,23 @@
+MK-Debugout is a class to help with debugging code
+while and after writing it. 
+It's main strength is the support of so-called "Debug scopes":
+Each possible debug output is in a named scope. Each scope
+can be activated or deactivated by the program itself or
+(preferrably) by a debugconfig-file.
+If this class (and header) is included, it supplies another
+outputstream called "dout" (for debugout). Output to this stream
+is printed to cout if the surrounding scope is activated.
+
+Config file for doxygen is included. Please use this to create
+further documentation. Also douttest.cc shows some common use-cases.
+
+To use this class, declare PATH_TO_DEBUGOUT in your Makefile
+and include $(PATH_TO_DEBUGOUT)Makefile.inc.
+Afterwards, the objects OBJ_DEBUGOUT and OBJ_DEBUGNOUT will be
+defined and have rules. Use OBJ_DEBUGNOUT to disable all output but
+still have the dout-functions defined.
+
+Please note that using mk-debugout creates further overhead even with
+the empty functions in OBJ_DEBUGNOUT. If memory usage or running time
+are critical, other debug options (having no traces when disabled) should
+be used.
