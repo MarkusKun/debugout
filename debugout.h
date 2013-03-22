@@ -160,9 +160,13 @@ class dout_t{
     dout_t& operator<< (const char* output );
     //! ReDefining << on strings (real strings)
     dout_t& operator<< (const std::string output);
+    //! ReDefining << on single chars
+    dout_t& operator<< (const char output );
     //! ReDefining << on integers
     dout_t& operator<< (const int output);
-    
+    //! ReDefining << on integers
+    dout_t& operator<< (const unsigned int output);
+
     //! ReDefining << on ostream-functions (like std::endl)
     dout_t& operator<< (std::ostream& ( *functionPointer )(std::ostream&));
     

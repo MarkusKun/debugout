@@ -44,6 +44,17 @@ int main(){
   dout.startScope("iomanips");
   dout << 9 << " "<<std::setfill('x') << std::setw(6) << 9 << endl;
   dout.endScope("iomanips");
+  
+  { // type testing
+    uint8_t testNumber=12;
+    char testChar='B';
+    int8_t testNumber2=-30;
+    dout << "number12 " << testNumber << endl;
+    dout << "CharB " << testChar << endl;
+    dout << "number-30 " << testNumber2 << endl;
+  }
+  
+  
   dout.endScope("main");
   return 0;
   

@@ -137,7 +137,27 @@ void dout_t::dout(const std::string& debugOutput)const{
     #endif
     return *this;
   }
+  dout_t& dout_t::operator<< (const char output ){
+    #ifndef NO_OUTPUT
+    { // only if output is globally active
+      if (currentActive){
+        std::cout << output;
+      }
+    }
+    #endif
+    return *this;
+  }
   dout_t& dout_t::operator<< (const int output ){
+    #ifndef NO_OUTPUT
+    { // only if output is globally active
+      if (currentActive){
+        std::cout << output;
+      }
+    }
+    #endif 
+    return *this;
+  }
+  dout_t& dout_t::operator<< (const unsigned int output ){
     #ifndef NO_OUTPUT
     { // only if output is globally active
       if (currentActive){
