@@ -1,5 +1,8 @@
 #include <iostream>
 #include <iomanip>
+
+#include <stdint.h>
+
 #include "debugout.h"
 
 int main(){

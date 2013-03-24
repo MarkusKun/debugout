@@ -37,7 +37,8 @@ void dout_t::loadConfigFile(const std::string& filename){
         break; // we reached a printable char
       }
     }
-    (*this) << ": Line: " << curLine << "(" << curLine.size() << ")" ;
+    (*this) << (const char*)": Line: " << curLine;
+    (*this) << "(" << (int) curLine.size() << ")" ;
     if ("//" == curLine.substr(0,2)){ // line starts with "//"
       (*this) << " NOT ACTIVE" << endl;
       continue;
@@ -68,7 +69,7 @@ void dout_t::startScope(const std::string& scopeName){
    * Note: By using dout, we don't need to check against active scope,
    * ourselves.
    */
-  (*this) << ">>" << currentScopeStack.size() << " " << scopeName << std::endl;
+  (*this) << ">>" << (int)currentScopeStack.size() << " " << scopeName << std::endl;
 }
 void dout_t::endScope(){
   #ifdef NO_OUTPUT
@@ -83,7 +84,7 @@ void dout_t::endScope(){
      * Note: By using dout, we don't need to check against active scope,
      * ourselves.
      */
-    (*this) << "<<" << currentScopeStack.size() << " " << currentScope << std::endl;
+    (*this) << "<<" << (int)currentScopeStack.size() << " " << currentScope << std::endl;
     currentScopeStack.pop(); // remove from stack
   }
   { // check whether next scope is active
